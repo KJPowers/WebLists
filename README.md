@@ -26,3 +26,17 @@ A simple list management program designed to run on a standard LAMP stack.
 * **Categories**: Not quite a sub-list, but helpful for sorting.
 * **Choice of DB**: Support for different DBMSs (MySQL, PostgreSQL, SQLite, ?NoSQL?).
 * **i18n**: If it takes off.
+
+## Installing
+For now the plan is to check out this repo directly into your apache site directory, but in the future to avoid the obvious security risks there will be a build script in some form to package the necessary files and nothing else into a .zip (or .tar.gz or whatever).
+
+### Prerequisites
+* LAMP stack configured to run PHP (I use PHP 8.1 and I haven't tested on other versions yet)
+* Composer (version >= ??? - need to test)
+* Shell access
+
+### Steps
+* Clone this repo
+* Run `composer retrieve`
+* Copy everything to your web host (if necessary)
+* TODO: DB setup (and/or install script?)
