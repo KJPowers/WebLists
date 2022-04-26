@@ -3,6 +3,7 @@ class Index
 {
   public $lists;
   public $items;
+  public $currentListName;
 }
 
 class WebList
