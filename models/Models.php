@@ -1,9 +1,10 @@
 <?php
 class Index
 {
-  public $lists;
-  public $items;
-  public $currentListName;
+  public $title;
+  public $currentList;
+  public $lists = array();
+  public $items = array();
 }
 
 class WebList
@@ -11,6 +12,7 @@ class WebList
   private ?string $uuid;
   public  ?string $name;
   public  ?string $description;
+  public  ?array  $items = array();
 
   public function __construct(?string $uuid = null, ?string $name = null, ?string $description = null)
   {
@@ -21,7 +23,12 @@ class WebList
 
   public function uuid(): string
   {
-    return $this->$uuid;
+    return $this->uuid;
+  }
+
+  public function hasItems():bool
+  {
+    return count($this->items) > 0;
   }
 }
 
@@ -43,8 +50,8 @@ class NavbarWebList extends WebList
 class Item
 {
   private ?int    $id;
-  public ?string $name;
-  public ?string $description;
+  public  ?string $name;
+  public  ?string $description;
 
   public function __construct(?int $id = null, ?string $name = null, ?string $description = null)
   {

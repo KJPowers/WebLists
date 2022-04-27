@@ -22,7 +22,7 @@ CREATE TABLE item (
 ) COMMENT='An item. Items are added to lists.';
 
 CREATE TABLE list_item (
-  list_uuid     VARCHAR(36) NOT NULL PRIMARY KEY,
+  list_uuid     VARCHAR(36) NOT NULL,
   item_id       INT NOT NULL,
   sort_idx      INT NOT NULL DEFAULT 0
     COMMENT 'The item''s order in the list. Updated by in-app logic.',

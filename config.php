@@ -1,5 +1,9 @@
 <?php
 
-$WEBLIST_db_ds = 'mysql:host=localhost;dbname=weblists';
-$WEBLIST_db_user = 'weblists_user';
-$WEBLIST_db_pass = '';
+// Site settings
+$WEBLISTS_title = 'WebLists - Simple Online Lists';
+
+// DB settings
+$WEBLISTS_db_dsn = 'mysql:host=localhost;dbname=weblists';
+$WEBLISTS_db_user = 'weblists_user';
+$WEBLISTS_db_pass = '';

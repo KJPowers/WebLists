@@ -8,7 +8,10 @@
     <ul class="navbar-nav nav-item me-2 m3-sm-3">
       <li class="nav-item dropdown">
         <!-- Button as anchor -->
-        <a class="nav-link dropdown-toggle ps-0 ps-sm-2" href="#" id="nb_CurrentListButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{currentListName}}</a>
+        <a class="nav-link dropdown-toggle ps-0 ps-sm-2" href="#" id="nb_CurrentListButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{# currentList }}{{ .name }}{{/ currentList }}
+          {{^ currentList }}Select or create a list{{/ currentList }}
+        </a>
         <!-- Button as a button -->
         <!--button type="button" id="nb_CurrentListButton" class="nav-button dropdown-toggle ps-0 ps-sm-2" data-bs-toggle="dropdown" aria-expanded="false">
           &lt;Current List Name&gt;

@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+
 // Dependencies
 require __DIR__ . '/vendor/autoload.php';
 require_once 'config.php';
@@ -16,7 +18,7 @@ $m = new Mustache_Engine(array(
 ));
 
 // Page parameters
-$uuid = $_GET['list'];
+$uuid = isset($_GET['list']) ? $_GET['list'] : null;
 
 // Controller
 //$ctrl = new Controller();

@@ -4,73 +4,77 @@ class Controller
 {
   public static function loadModel($uuid)
   {
+    global $WEBLISTS_title;
     $mdl = new Index();
 
-    // We define these in config.php
+    // Set some basic things
+    $mdl->title = $WEBLISTS_title;
+
+    // Get all lists
+    // TODO: for the current user
+    $results = Controller::runQuery('SELECT * FROM list ORDER BY name');
+    foreach ($results as $row)
+    {
+      $nwl = new NavbarWebList($row['uuid'], $row['name'], $row['description']);
+      if ($uuid === $nwl->uuid())
+      {
+        $mdl->currentList = $nwl;
+      }
+      else
+      {
+        $mdl->lists[] = $nwl;
+      }
+    }
+
+    // Get all items
+    // TODO: for the current user
+    $results = Controller::runQuery('SELECT item.*, list_item.list_uuid FROM item LEFT JOIN list_item ON item.id = list_item.item_id ORDER BY (CASE WHEN list_uuid IS null THEN 1 ELSE 0 END), sort_idx');
+    foreach ($results as $row)
+    {
+      $ni = new NavbarItem($row['id'], $row['name'], $row['description']);
+      if (isset($uuid) && $uuid === $row['list_uuid'])
+      {
+        $mdl->currentList->items[] = $ni;
+      }
+      else
+      {
+        $mdl->items[] = $ni;
+      }
+    }
+
+    return $mdl;
+  }
+
+  public static function runQuery($query, $params=null)
+  {
     global $WEBLISTS_db_dsn;
     global $WEBLISTS_db_user;
     global $WEBLISTS_db_pass;
 
-    // Open a connection to the DB
-    // TODO: move this to a helper method
+    $pdo = null;
+    $pdos = null;
     try
     {
+      // Open a connection to the DB
       $pdo = new PDO($WEBLISTS_db_dsn, $WEBLISTS_db_user, $WEBLISTS_db_pass);
+
+      // Prepare and run the query
+      $pdos = $pdo->prepare($query);
+      $pdos->execute($params);
+      $rows = $pdos->fetchAll();
+
+      return $rows;
     }
     catch (PDOException $e)
     {
-      print "Error!: " . $e->getMessage() . "<br/>";
+      // TODO: make this better
+      print "DB error in runQuery(): " . $e->getMessage() . "<br/>";
       die();
     }
-
-    if (isset($uuid))
+    finally
     {
-      // Query the DB
-      $sth = $pdo->prepare('SELECT * FROM list WHERE uuid=?');
-      $sth->execute(array($uuid));
-      $foo = $sth->fetchAll();
-
-      if (count($foo) === 0)
-      {
-        // No list found, or no list selected
-        $mdl->currentListName = '<select a list>';
-      }
-      elseif (count($foo) === 1)
-      {
-        // Found the list
-        $mdl->currentListName = $foo[0]['name'];
-      }
-      else
-      {
-        // multiple lists found. should be impossible because of the unique constraint in the DB
-        echo "oh no no no no no";
-      }
-
-      // Close the query
-      $sth = null;
+      $pdos = null;
+      $pdo = null;
     }
-    else
-    {
-      // no list specified
-      echo "not specified";
-    }
-
-    // Close the DB connection
-    $pdo = null;
-
-    // Build the model to return
-//    $mdl->currentListName = '<Current List Name>';
-    $mdl->lists = array(
-      new NavbarWebList('abc', '<List 1>', 'The first list'),
-      new NavbarWebList('def', '<List 2>', 'The second list'),
-      new NavbarWebList('ghi', '<List 3>', 'The third list'),
-    );
-    $mdl->items = array(
-      new NavbarItem(1, '<Item 1>', 'foo'),
-      new NavbarItem(2, '<Item 2>', ''),
-      new NavbarItem(3, '<Item 3>', ''),
-    );
-
-    return $mdl;
   }
 }
