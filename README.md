@@ -39,4 +39,11 @@ For now the plan is to check out this repo directly into your apache site direct
 * Clone this repo
 * Run `composer retrieve`
 * Copy everything to your web host (if necessary)
+* Edit sql/1_create_users_and_schema.sql to give passwords (preferably different from each other, and each strong).
+* Log into MySQL as root (or other user with permission to create DBs and grant permissions on them) and run sql/1_create_users_and_schema.sql.
+* Log out of MySQL.
+* Log back in to MySQL as weblists_user and run sql/2_create_tables.sql.
+* Edit config.php:
+** Set the password for weblists_user.
+** Set the title of your site.
 * TODO: DB setup (and/or install script?)
