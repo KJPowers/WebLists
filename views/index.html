@@ -18,22 +18,27 @@
 ?>
 <div class="container">
   {{# currentList }}
-    {{# .hasItems }}
-      <ul>
-      {{# currentList.items }}
-        <li>{{ .name }}</li>
-      {{/ currentList.items }}
-      </ul>
-    {{/ .hasItems }}
-    {{^ .hasItems }}
-      No items yet. Add one maybe?
-    {{/ .hasItems }}
-  {{/ currentList }}
-  {{^ currentList }}
-    Create or select a list, then add items.
-  {{/ currentList }}
+		{{# .hasItems }}
+			<ul id="theCurrentList">
+			{{# currentList.items }}
+				<li>{{ .name }}</li>
+			{{/ currentList.items }}
+			</ul>
+		{{/ .hasItems }}
+		{{^ .hasItems }}
+			No items yet. Add one maybe?
+		{{/ .hasItems }}
+	{{/ currentList }}
+	{{^ currentList }}
+		Create or select a list, then add items.
+	{{/ currentList }}
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-  </body>
+<div id='listTemplate' class="d-none">
+<li>${name}</li>
+</div>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+		<script src="js/functions.js"></script>
+		<script type="text/javascript">const LIST_UUID='{{# currentList }}{{ .uuid}}{{/ currentList }}'</script>
+	</body>
 </html>

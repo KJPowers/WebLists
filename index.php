@@ -21,6 +21,7 @@ $m = new Mustache_Engine(array(
 $uuid = isset($_GET['list']) ? $_GET['list'] : null;
 
 // Controller
+Controller::handleFormData();
 //$ctrl = new Controller();
 $mdl = Controller::loadModel($uuid);
 
