@@ -2,7 +2,6 @@
 // Sunny-day handlers for AJAX requests. Throw errors when detected, and 'ajax.php' will handle them.
 
 require_once 'DB.php';
-//require_once '../models/';
 
 // Parent class for all AJAX handlers
 abstract class AjaxHandler
@@ -18,7 +17,7 @@ abstract class AjaxHandler
 
 	abstract function validate();
 
-
+	// Yay everything worked! Emit JSON output.
 	function success($mdl)
 	{
 		header('Content-Type:·application/json');

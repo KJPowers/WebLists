@@ -9,11 +9,6 @@ switch ($params['action']??null)
 {
 	case 'addItem':
 		$handler = new AjaxAddItemHandler($params);
-/*		if (Controller::doAddItem(new ListItem($params['listUuid'], $params['itemId'])))
-		{
-			header('Content-Type:·application/json');
-			echo Controller::loadList($params)->toJSON();
-		}*/
 		break;
 	default:
 //		$handler = new AjaxErrorHandler($params);
@@ -70,42 +65,3 @@ function parseAjaxParams(): array
 
 	return $params;
 }
-
-/*class Echo2
-{
-	public $list;
-	public $uuid;
-	public $id;
-	public $foo;
-	public $params = array();
-
-	public function setIf($param)
-	{
-		if (isset($_POST[$param]))
-		{
-			$this->params[$param] = $_POST[$param];
-			if ($param === 'list')
-			{
-				$this->list = $_POST[$param];
-			}
-			if ($param === 'uuid')
-			{
-				$this->uuid = $_POST[$param];
-			}
-			if ($param === 'id')
-			{
-				$this->id = $_POST[$param];
-			}
-		}
-	}
-}
-
-$e = new Echo2();
-$e->setIf('list');
-$e->setIf('uuid');
-$e->setIf('id');
-//$e->foo='barbaz';
-//$e->params['mine']='notyours';
-
-header('Content-Type: application/json');
-echo json_encode($e);*/

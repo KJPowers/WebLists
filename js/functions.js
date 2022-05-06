@@ -29,7 +29,7 @@ function addItemAjax(item_id)
 		{
 			if (httpRequest.status === 200)
 			{
-				alert(httpRequest.responseText);	// TODO: stop doing this when we're done debugging
+//				alert(httpRequest.responseText);	// TODO: stop doing this when we're done debugging
 				replaceActiveList(httpRequest.responseText);
 				replaceAvailableItems(httpRequest.responseText);
 			}
