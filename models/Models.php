@@ -12,7 +12,7 @@ class WebList
 	private ?string $uuid;
 	public  ?string $name;
 	public  ?string $description;
-	public  ?array  $items = array();
+	public  ?array  $listItems = array();
 
 	public function __construct(?string $uuid = null, ?string $name = null, ?string $description = null)
 	{
@@ -23,12 +23,12 @@ class WebList
 
 	public function uuid(): string
 	{
-	return $this->uuid;
+		return $this->uuid;
 	}
 
 	public function hasItems():bool
 	{
-	return count($this->items) > 0;
+		return count($this->items) > 0;
 	}
 
 	public function toJSON():string
@@ -49,9 +49,9 @@ class NavbarWebList extends WebList
 
 class Item
 {
-	private ?int    $id;
-	public  ?string $name;
-	public  ?string $description;
+	public ?int    $id;
+	public ?string $name;
+	public ?string $description;
 
 	public function __construct(?int $id = null, ?string $name = null, ?string $description = null)
 	{
@@ -60,10 +60,10 @@ class Item
 		$this->description = $description;
 	}
 
-	public function id():int
+/*	public function id():int
 	{
 		return $this->id;
-	}
+	}*/
 }
 
 class NavbarItem extends Item

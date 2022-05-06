@@ -31,7 +31,7 @@ class Controller
 
 		foreach ($results as $row)
 		{
-			$wl->items[] = new Item($row['id'], $row['iname'], $row['idesc']);
+			$wl->listItems[] = new Item($row['id'], $row['iname'], $row['idesc']);
 		}
 
 		return $wl;

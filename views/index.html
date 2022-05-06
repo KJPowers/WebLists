@@ -33,6 +33,9 @@
 		Create or select a list, then add items.
 	{{/ currentList }}
 </div>
+<div id='itemsTemplate' class="d-none">
+<li><a class="${class}" onclick="addItemAjax(${id})">${name}</a></li>
+</div>
 <div id='listTemplate' class="d-none">
 <li>${name}</li>
 </div>

@@ -39,7 +39,7 @@
         <!--ul class="dropdown-menu dropdown-menu-dark ms-auto" aria-labelledby="nb_AddItemButton" -->
         <form method="post" action="ajax.php" id="frmAddItem" class="dropdown-menu dropdown-menu-dark ms-auto">
           <input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
-          <ul>
+          <ul id='availableItems'>
             <li><a class="nav-link" href="#">Search O---</a></li><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
             {{# items }}
               <li><a class="{{ .class }}" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>

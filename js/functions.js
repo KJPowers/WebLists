@@ -1,3 +1,4 @@
+// DEPRECATED: use addItemAjax()
 function addItem(item_id)
 {
 	document.getElementById("inAddItem").value=item_id;
@@ -28,8 +29,9 @@ function addItemAjax(item_id)
 		{
 			if (httpRequest.status === 200)
 			{
-//				alert(httpRequest.responseText);
+				alert(httpRequest.responseText);	// TODO: stop doing this when we're done debugging
 				replaceActiveList(httpRequest.responseText);
+				replaceAvailableItems(httpRequest.responseText);
 			}
 			else
 			{
@@ -44,9 +46,26 @@ function replaceActiveList(json_list)
 	var templ = document.getElementById('listTemplate').innerHTML;
 	var js_list = JSON.parse(json_list);
 	var repl_html = '';
-	for (let i in js_list.items)
+	for (let i in js_list.listItems)
 	{
-		repl_html += templ.replace('${name}', js_list.items[i].name);
+		repl_html += templ.replace('${name}', js_list.listItems[i].name);
 	}
 	document.getElementById('theCurrentList').innerHTML = repl_html;
+}
+
+function replaceAvailableItems(json_list)
+{
+	var templ = document.getElementById('itemsTemplate').innerHTML;
+	var js_list = JSON.parse(json_list);
+	var repl_html = document.getElementById('availableItems').firstElementChild.outerHTML;
+
+	for (let i in js_list.nbItems)
+	{
+		repl_html +=
+		  templ
+		    .replace('${name}',  js_list.nbItems[i].name)
+		    .replace('${id}',    js_list.nbItems[i].id)
+		    .replace('${class}', js_list.nbItems[i].class);
+	}
+	document.getElementById('availableItems').innerHTML = repl_html;
 }
