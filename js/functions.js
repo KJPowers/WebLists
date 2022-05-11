@@ -30,8 +30,44 @@ function addItemAjax(item_id)
 			if (httpRequest.status === 200)
 			{
 //				alert(httpRequest.responseText);	// TODO: stop doing this when we're done debugging
-				replaceActiveList(httpRequest.responseText);
 				replaceAvailableItems(httpRequest.responseText);
+				replaceActiveList(httpRequest.responseText);
+			}
+			else
+			{
+				alert('There was a problem with the request.');
+			}
+		}
+	}
+}
+
+function toggleMarkedAjax(item_id)
+{
+	var httpRequest;
+	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+	httpRequest = new XMLHttpRequest();
+
+	if (!httpRequest)
+	{
+		alert('Giving up: ( Cannot create an XMLHTTP instance');
+		return false;
+	}
+
+	httpRequest.onreadystatechange = doneTogglingMarked;
+	//httpRequest.open('GET', 'ajax.php', true);
+	httpRequest.open('POST', 'ajax.php', true);
+	httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	httpRequest.send('action=toggleMarked&listUuid=' + encodeURIComponent(LIST_UUID) +'&itemId=' + encodeURIComponent(item_id));
+
+	function doneTogglingMarked()
+	{
+		if (httpRequest.readyState === XMLHttpRequest.DONE)
+		{
+			if (httpRequest.status === 200)
+			{
+//				alert(httpRequest.responseText);  // TODO: stop doing this when we're done debugging
+//				replaceAvailableItems(httpRequest.responseText);
+				replaceActiveList(httpRequest.responseText);
 			}
 			else
 			{
@@ -51,6 +87,7 @@ function replaceActiveList(json_list)
 		repl_html +=
 		  templ
 		    .replace('${name}',   js_list.listItems[i].name)
+		    .replace('${id}',     js_list.listItems[i].id)
 		    .replace('${class}',  js_list.listItems[i].class);
 	}
 	document.getElementById('theCurrentList').innerHTML = repl_html;

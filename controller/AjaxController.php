@@ -70,3 +70,49 @@ class AjaxAddItemHandler extends AjaxHandler
 		}*/
 	}
 }
+
+// Handle ajax calls of type 'addItem'
+class AjaxToggleMarkedHandler extends AjaxHandler
+{
+	private ?string $listUuid;
+	private ?int    $itemId;
+
+	public function __construct(?array $params)
+	{
+		parent::__construct($params);
+		$this->listUuid = $params['listUuid'];
+		$this->itemId   = $params['itemId'];
+	}
+
+	function handleAjax()
+	{
+		$this->validate();
+
+		DB::runQuery('UPDATE list_item SET marked = IF(marked, 0, 1) WHERE list_uuid = ? AND item_id = ?', array($this->listUuid, $this->itemId));
+
+		$this->success(AjaxToggleMarkedResponse::load($this->listUuid));
+	}
+
+	function validate()
+	{
+		if ($this->action != 'toggleMarked')
+		{
+			// TODO: throw an error
+		}
+
+		if (!isset($this->listUuid))
+		{
+			// TODO: throw an error
+		}
+
+		if (!isset($this->listUuid))
+		{
+			// TODO: throw an error
+		}
+
+/*		if (TODO: check that user has permission to edit list and to access item)
+		{
+			// TODO: throw an error
+		}*/
+	}
+}

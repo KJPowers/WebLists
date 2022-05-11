@@ -34,3 +34,27 @@ class AjaxAddItemResponse
 		return $resp;
 	}
 }
+
+// Response to 'toggleMarked'
+class AjaxToggleMarkedResponse
+{
+	public ?array $listItems = array();
+
+	public static function load(?string $listUuid):AjaxToggleMarkedResponse
+	{
+		$resp = new AjaxToggleMarkedResponse();
+
+		$results = DB::runQuery(
+			'SELECT item.*, list_item.list_uuid, list_item.marked ' .
+			'FROM item ' .
+			  'JOIN list_item ON item.id = list_item.item_id AND list_item.list_uuid = ? ' .
+			'ORDER BY sort_idx, name',
+			array($listUuid));
+		foreach ($results as $row)
+		{
+			$resp->listItems[] = new CurrentListItem($row['id'], $row['name'], $row['description'], $row['marked']);
+		}
+
+		return $resp;
+	}
+}
