@@ -10,6 +10,9 @@ switch ($params['action']??null)
 	case 'addItem':
 		$handler = new AjaxAddItemHandler($params);
 		break;
+	case 'toggleMarked':
+		$handler = new AjaxToggleMarkedHandler($params);
+		break;
 	default:
 //		$handler = new AjaxErrorHandler($params);
 		echo 'Error:·unknown·action';
@@ -38,6 +41,7 @@ function parseAjaxParams(): array
 	switch ($_POST[$param]??null)
 	{
 		case 'addItem':
+		case 'toggleMarked':
 			$params[$param] = $_POST[$param];
 	}
 
