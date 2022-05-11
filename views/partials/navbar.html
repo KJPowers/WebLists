@@ -1,96 +1,96 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark p-0">
-  <div class="container-xxl d-flex pe-0"><!-- class="d-flex flex-row justify-content-between p-0"-->
-    <!-- Site Logo -->
-    <a class="navbar-brand d-none d-sm-flex align-items-center" href="#">
-      <img src="https://stupidiville.org/lists/logo.png"/>
-    </a>
-    <!-- List Selector dropdown -->
-    <ul class="navbar-nav nav-item me-2 m3-sm-3">
-      <li class="nav-item dropdown">
-        <!-- Button as anchor -->
-        <a class="nav-link dropdown-toggle ps-0 ps-sm-2" href="#" id="nb_CurrentListButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{# currentList }}{{ .name }}{{/ currentList }}
-          {{^ currentList }}Select or create a list{{/ currentList }}
-        </a>
-        <!-- Button as a button -->
-        <!--button type="button" id="nb_CurrentListButton" class="nav-button dropdown-toggle ps-0 ps-sm-2" data-bs-toggle="dropdown" aria-expanded="false">
-          &lt;Current List Name&gt;
-        </button-->
-        <!-- List of lists -->
-        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nb_CurrentListButton">
-          <li><a class="nav-link" href="#">Search    O---</a></li>
-          {{# lists }}
-            <li><a class="{{ .class }}" href="#">{{ .name }}</a></li>
-          {{/ lists }}
-        </ul>
-      </li>
-    </ul>
-    <ul class="navbar-nav nav-item">
-      <li class="nav-item dropdown">
-        <!-- Add Item button -->
-        <button type="button" id="nb_AddItemButton" class="nav-button btn bg-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-          </svg>
-          <span class="btn-label bg-light d-none d-sm-inline">
-            Add item
-          </span>
-        </button>
-        <!--ul class="dropdown-menu dropdown-menu-dark ms-auto" aria-labelledby="nb_AddItemButton" -->
-        <form method="post" action="ajax.php" id="frmAddItem" class="dropdown-menu dropdown-menu-dark ms-auto">
-          <input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
-          <ul id='availableItems'>
-            <li><a class="nav-link" href="#">Search O---</a></li><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
-            {{# items }}
-              <li><a class="{{ .class }}" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
-            {{/ items }}
-          </ul>
-        </form>
-      </li>
-    </ul>
-    <!-- Settings button (offcanvas) -->
-    <button class="navbar-toggler ms-auto d-flex align-items-center border-0 py-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#nbSettings" aria-controls="nbSettings">
-      <!-- Hamburger icon -->
-      <!--span class="navbar-toggler-icon"></span-->
-      <!-- Three dots -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-      </svg>
-    </button>
-  </div>
+	<div class="container-xxl d-flex pe-0"><!-- class="d-flex flex-row justify-content-between p-0"-->
+		<!-- Site Logo -->
+		<a class="navbar-brand d-none d-sm-flex align-items-center" href="#">
+			<img src="https://stupidiville.org/lists/logo.png"/>
+		</a>
+		<!-- List Selector dropdown -->
+		<ul class="navbar-nav nav-item me-2 m3-sm-3">
+			<li class="nav-item dropdown">
+				<!-- Button as anchor -->
+				<a class="nav-link dropdown-toggle ps-0 ps-sm-2" href="#" id="nb_CurrentListButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					{{# currentList }}{{ .name }}{{/ currentList }}
+					{{^ currentList }}Select or create a list{{/ currentList }}
+				</a>
+				<!-- Button as a button -->
+				<!--button type="button" id="nb_CurrentListButton" class="nav-button dropdown-toggle ps-0 ps-sm-2" data-bs-toggle="dropdown" aria-expanded="false">
+					&lt;Current List Name&gt;
+				</button-->
+				<!-- List of lists -->
+				<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nb_CurrentListButton">
+					<li><a class="nav-link" href="#">Search		O---</a></li>
+					{{# lists }}
+						<li><a class="{{ .class }}" href="?list={{ .uuid }}">{{ .name }}</a></li>
+					{{/ lists }}
+				</ul>
+			</li>
+		</ul>
+		<ul class="navbar-nav nav-item">
+			<li class="nav-item dropdown">
+				<!-- Add Item button -->
+				<button type="button" id="nb_AddItemButton" class="nav-button btn bg-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+					</svg>
+					<span class="btn-label bg-light d-none d-sm-inline">
+						Add item
+					</span>
+				</button>
+				<!--ul class="dropdown-menu dropdown-menu-dark ms-auto" aria-labelledby="nb_AddItemButton" -->
+				<form method="post" action="ajax.php" id="frmAddItem" class="dropdown-menu dropdown-menu-dark ms-auto">
+					<input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
+					<ul id='availableItems'>
+						<li><a class="nav-link" href="#">Search O---</a></li><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
+						{{# items }}
+							<li><a class="{{ .class }}" role="button" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
+						{{/ items }}
+					</ul>
+				</form>
+			</li>
+		</ul>
+		<!-- Settings button (offcanvas) -->
+		<button class="navbar-toggler ms-auto d-flex align-items-center border-0 py-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#nbSettings" aria-controls="nbSettings">
+			<!-- Hamburger icon -->
+			<!--span class="navbar-toggler-icon"></span-->
+			<!-- Three dots -->
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+				<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+			</svg>
+		</button>
+	</div>
 </nav>
 <!-- Settings offcanvas -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="nbSettings" aria-labelledby="offcanvasNavbarLabel">
-  <!-- TODO: literally everything -->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </li>
-    </ul>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
+	<!-- TODO: literally everything -->
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body">
+		<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Dropdown
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+					<li><a class="dropdown-item" href="#">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li>
+						<hr class="dropdown-divider">
+					</li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			</li>
+		</ul>
+		<form class="d-flex">
+			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-success" type="submit">Search</button>
+		</form>
+	</div>
 </div>
