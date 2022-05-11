@@ -76,6 +76,17 @@ class NavbarItem extends Item
 	}
 }
 
+class CurrentListItem extends Item
+{
+	public ?string $class;
+
+	public function __construct(?int $id = null, ?string $name = null, ?string $description = null, ?bool $marked = false)
+	{
+		parent::__construct($id, $name, $description);
+		$this->class = $marked ? 'text-decoration-line-through' : '';
+	}
+}
+
 class ListItem
 {
 	public $list_uuid;

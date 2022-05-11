@@ -37,17 +37,17 @@ class Controller
 
 		// Get all items
 		// TODO: for the current user
-		$results = Controller::runQuery('SELECT item.*, list_item.list_uuid FROM item LEFT JOIN list_item ON item.id = list_item.item_id ORDER BY sort_idx, name');
+		$results = Controller::runQuery('SELECT item.*, list_item.list_uuid, list_item.marked FROM item LEFT JOIN list_item ON item.id = list_item.item_id ORDER BY sort_idx, name');
 		foreach ($results as $row)
 		{
-			$ni = new NavbarItem($row['id'], $row['name'], $row['description']);
+			$ni = new NavbarItem($row['id'], $row['name'], $row['description'], $row['marked']);
 			if (isset($uuid) && $uuid === $row['list_uuid'])
 			{
-				$mdl->currentList->items[] = $ni;
+				$mdl->currentList->items[] = new CurrentListItem($row['id'], $row['name'], $row['description'], $row['marked']);
 			}
 			else
 			{
-				$mdl->items[] = $ni;
+				$mdl->items[] = new NavbarItem($row['id'], $row['name'], $row['description']);
 			}
 		}
 

@@ -43,19 +43,22 @@ function addItemAjax(item_id)
 
 function replaceActiveList(json_list)
 {
-	var templ = document.getElementById('listTemplate').innerHTML;
+	var templ = document.getElementById('listItemTemplate').innerHTML;
 	var js_list = JSON.parse(json_list);
 	var repl_html = '';
 	for (let i in js_list.listItems)
 	{
-		repl_html += templ.replace('${name}', js_list.listItems[i].name);
+		repl_html +=
+		  templ
+		    .replace('${name}',   js_list.listItems[i].name)
+		    .replace('${class}',  js_list.listItems[i].class);
 	}
 	document.getElementById('theCurrentList').innerHTML = repl_html;
 }
 
 function replaceAvailableItems(json_list)
 {
-	var templ = document.getElementById('itemsTemplate').innerHTML;
+	var templ = document.getElementById('nbItemTemplate').innerHTML;
 	var js_list = JSON.parse(json_list);
 	var repl_html = document.getElementById('availableItems').firstElementChild.outerHTML;
 

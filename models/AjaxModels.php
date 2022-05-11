@@ -14,7 +14,7 @@ class AjaxAddItemResponse
 		$resp = new AjaxAddItemResponse();
 
 		$results = DB::runQuery(
-			'SELECT item.*, list_item.list_uuid ' .
+			'SELECT item.*, list_item.list_uuid, list_item.marked ' .
 			'FROM item ' .
 			  'LEFT JOIN list_item ON item.id = list_item.item_id AND list_item.list_uuid = ? ' .
 			'ORDER BY sort_idx, name',
@@ -23,7 +23,7 @@ class AjaxAddItemResponse
 		{
 			if ($listUuid === $row['list_uuid'])
 			{
-				$resp->listItems[] = new NavbarItem($row['id'], $row['name'], $row['description']);
+				$resp->listItems[] = new CurrentListItem($row['id'], $row['name'], $row['description'], $row['marked']);
 			}
 			else
 			{
