@@ -77,6 +77,42 @@ function toggleMarkedAjax(item_id)
 	}
 }
 
+function clearMarkedAjax()
+{
+	var httpRequest;
+	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+	httpRequest = new XMLHttpRequest();
+
+	if (!httpRequest)
+	{
+		alert('Giving up: ( Cannot create an XMLHTTP instance');
+		return false;
+	}
+
+	httpRequest.onreadystatechange = doneClearingMarked;
+	//httpRequest.open('GET', 'ajax.php', true);
+	httpRequest.open('POST', 'ajax.php', true);
+	httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	httpRequest.send('action=clearMarked&listUuid=' + encodeURIComponent(LIST_UUID));
+
+	function doneClearingMarked()
+	{
+		if (httpRequest.readyState === XMLHttpRequest.DONE)
+		{
+			if (httpRequest.status === 200)
+			{
+//				alert(httpRequest.responseText);  // TODO: stop doing this when we're done debugging
+				replaceAvailableItems(httpRequest.responseText);
+				replaceActiveList(httpRequest.responseText);
+			}
+			else
+			{
+				alert('There was a problem with the request.');
+			}
+		}
+	}
+}
+
 function replaceActiveList(json_list)
 {
 	var templ = document.getElementById('listItemTemplate').innerHTML;

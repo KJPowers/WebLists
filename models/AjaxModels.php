@@ -3,15 +3,15 @@
 include_once __DIR__.'/../controller/DB.php';
 include_once 'Models.php';
 
-// Response to 'addItem'
-class AjaxAddItemResponse
+// Response with the navbar items and the current list items
+class AjaxNbAndCurrentItemsResponse
 {
 	public ?array $listItems = array();
 	public ?array $nbItems   = array();
 
-	public static function load(?string $listUuid):AjaxAddItemResponse
+	public static function load(?string $listUuid):AjaxNbAndCurrentItemsResponse
 	{
-		$resp = new AjaxAddItemResponse();
+		$resp = new AjaxNbAndCurrentItemsResponse();
 
 		$results = DB::runQuery(
 			'SELECT item.*, list_item.list_uuid, list_item.marked ' .
@@ -35,14 +35,14 @@ class AjaxAddItemResponse
 	}
 }
 
-// Response to 'toggleMarked'
-class AjaxToggleMarkedResponse
+// Response with just the current list items
+class AjaxCurrentItemsResponse
 {
 	public ?array $listItems = array();
 
-	public static function load(?string $listUuid):AjaxToggleMarkedResponse
+	public static function load(?string $listUuid):AjaxCurrentItemsResponse
 	{
-		$resp = new AjaxToggleMarkedResponse();
+		$resp = new AjaxCurrentItemsResponse();
 
 		$results = DB::runQuery(
 			'SELECT item.*, list_item.list_uuid, list_item.marked ' .
