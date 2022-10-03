@@ -155,3 +155,64 @@ class AjaxClearMarkedHandler extends AjaxHandler
 		}*/
 	}
 }
+
+// Handle ajax calls of type 'newItem'
+class AjaxNewItemHandler extends AjaxHandler
+{
+	private ?string $listUuid;
+	private ?string $itemName;
+	private ?int    $itemName_len;
+
+	public function __construct(?array $params)
+	{
+		parent::__construct($params);
+		$this->listUuid = $params['listUuid'];
+		$this->itemName = $params['itemName'];
+		$this->itemName_len = $params['itemName_len'];
+	}
+
+	function handleAjax()
+	{
+		$this->validate();
+
+		$results = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
+		$item_id;
+		if (count($results) == 0)
+		{
+			DB::runQuery('INSERT INTO item (name) VALUES (?)', array($this->itemName));
+			$results2 = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
+			$item_id = $results2[0]['id'];
+		}
+		else
+		{
+			$item_id = $results[0]['id'];
+		}
+		DB::runQuery('INSERT INTO list_item ( list_uuid, item_id ) VALUES ( ?, ?)', array($this->listUuid, $item_id));
+
+		$this->success(AjaxNbAndCurrentItemsResponse::load($this->listUuid));
+	}
+
+	function validate()
+	{
+		if ($this->action != 'newItem')
+		{
+			// TODO: throw an error
+		}
+
+		if (!isset($this->itemName))
+		{
+			// TODO: throw an error
+		}
+
+		if (!isset($this->itemName_len))
+		{
+			// TODO: throw an error
+		}
+
+/*		if (TODO: check that user has permission to edit list and to access item)
+		{
+			// TODO: throw an error
+		}*/
+	}
+}
+

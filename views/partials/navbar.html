@@ -18,7 +18,7 @@
 				</button-->
 				<!-- List of lists -->
 				<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nb_CurrentListButton">
-					<li><a class="nav-link" href="#">Search		O---</a></li>
+					<li><input type="text" class="form-control" id="listSearch" placeholder="Search"></input></li>
 					{{# lists }}
 						<li><a class="{{ .class }}" href="?list={{ .uuid }}">{{ .name }}</a></li>
 					{{/ lists }}
@@ -27,7 +27,7 @@
 		</ul>
 		<ul class="navbar-nav nav-item">
 			<li class="nav-item dropdown">
-				<!-- Add Item button -->
+				<!-- Add Item (to list) button -->
 				<button type="button" id="nb_AddItemButton" class="nav-button btn bg-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
 						<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
@@ -36,16 +36,22 @@
 						Add item
 					</span>
 				</button>
-				<!--ul class="dropdown-menu dropdown-menu-dark ms-auto" aria-labelledby="nb_AddItemButton" -->
-				<form method="post" action="ajax.php" id="frmAddItem" class="dropdown-menu dropdown-menu-dark ms-auto">
-					<input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
-					<ul id='availableItems'>
-						<li><a class="nav-link" href="#">Search O---</a></li><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
-						{{# items }}
-							<li><a class="{{ .class }}" role="button" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
-						{{/ items }}
+				<!-- Add item (to current list) -->
+				<div class="dropdown-menu dropdown-menu-dark ms-auto">
+					<form method="post" action="ajax.php" id="frmAddItem">
+						<input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
+						<!--li><a class="nav-link" href="#">Search O---</a></li><! -- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
+						<!-- Item Search button -->
+						<input type="text" class="form-control" id="itemSearch" placeholder="Search"></input><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
+						<!-- New Item button -->
+						<button type="button" id="nb_newItemButton" class="form-control nav-button btn bg-light" onclick="newItemAjax()">New Item</button>
+						<ul id="availableItems">
+							{{# items }}
+								<li><a class="{{ .class }}" role="button" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
+							{{/ items }}
+						</form>
 					</ul>
-				</form>
+				</div>
 			</li>
 		</ul>
 		<!-- Settings button (offcanvas) -->

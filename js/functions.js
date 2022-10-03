@@ -113,6 +113,43 @@ function clearMarkedAjax()
 	}
 }
 
+function newItemAjax()
+{
+	var httpRequest;
+	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+	httpRequest = new XMLHttpRequest();
+
+	if (!httpRequest)
+	{
+		alert('Giving up: ( Cannot create an XMLHTTP instance');
+		return false;
+	}
+
+	httpRequest.onreadystatechange = doneAddingNewItem;
+	//httpRequest.open('GET', 'ajax.php', true);
+	httpRequest.open('POST', 'ajax.php', true);
+	httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	httpRequest.send('action=newItem&listUuid=' + encodeURIComponent(LIST_UUID) + '&itemName=' + encodeURIComponent(document.getElementById('itemSearch').value));
+
+	function doneAddingNewItem()
+	{
+		if (httpRequest.readyState === XMLHttpRequest.DONE)
+		{
+			if (httpRequest.status === 200)
+			{
+//				alert(httpRequest.responseText);  // TODO: stop doing this when we're done debugging
+				replaceAvailableItems(httpRequest.responseText);
+				replaceActiveList(httpRequest.responseText);
+				document.getElementById('itemSearch').value = '';
+			}
+			else
+			{
+				alert('There was a problem with the request.');
+			}
+		}
+	}
+}
+
 function replaceActiveList(json_list)
 {
 	var templ = document.getElementById('listItemTemplate').innerHTML;
@@ -133,7 +170,7 @@ function replaceAvailableItems(json_list)
 {
 	var templ = document.getElementById('nbItemTemplate').innerHTML;
 	var js_list = JSON.parse(json_list);
-	var repl_html = document.getElementById('availableItems').firstElementChild.outerHTML;
+	var repl_html = '';
 
 	for (let i in js_list.nbItems)
 	{

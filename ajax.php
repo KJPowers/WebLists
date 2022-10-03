@@ -16,6 +16,9 @@ switch ($params['action']??null)
 	case 'clearMarked':
 		$handler = new AjaxClearMarkedHandler($params);
 		break;
+	case 'newItem':
+		$handler = new AjaxNewItemHandler($params);
+		break;
 	default:
 //		$handler = new AjaxErrorHandler($params);
 		echo 'Error:·unknown·action';
@@ -38,7 +41,7 @@ function parseAjaxParams(): array
 {
 	$params = array();
 
-	// action can be one of: addItem, editItem (TODO), removeItem (TODO), addList (TODO), editList(TODO), removeList(TODO)
+	// action can be one of: addItem, toggleMarked, clearMarked, newItem, editItem (TODO), removeItem (TODO), addList (TODO), editList(TODO), removeList(TODO), newList(TODO)
 	$param = 'action';
 
 	switch ($_POST[$param]??null)
@@ -46,6 +49,7 @@ function parseAjaxParams(): array
 		case 'addItem':
 		case 'toggleMarked':
 		case 'clearMarked':
+		case 'newItem':
 			$params[$param] = $_POST[$param];
 	}
 
@@ -61,8 +65,14 @@ function parseAjaxParams(): array
 //	if (preg_match(Controller::UUID_REGEX, $_POST[$param]))
 	if (preg_match('/^[0-9a-z]+$/i', $_POST[$param]??'')) // TODO: listUuid must be a UUID
 	{
-		$params[$param] = $_POST[$param];
+		$params[$param] = $_POST[$param]??'';
 	}
+
+	// itemName can be at most 250 characters long.
+	// itemName_len goes along for the ride so we can warn the user.
+	$param = 'itemName';
+	$params[$param]         = mb_substr($_POST[$param]??'', 0, 250);
+	$params['itemName_len'] = mb_strlen($_POST[$param]??'');
 
 	// list must be alphanumeric
 /*	$param = 'list';
@@ -73,4 +83,3 @@ function parseAjaxParams(): array
 
 	return $params;
 }
-
