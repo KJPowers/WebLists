@@ -71,8 +71,9 @@ function parseAjaxParams(): array
 	// itemName can be at most 250 characters long.
 	// itemName_len goes along for the ride so we can warn the user.
 	$param = 'itemName';
-	$params[$param]         = mb_substr($_POST[$param]??'', 0, 250);
-	$params['itemName_len'] = mb_strlen($_POST[$param]??'');
+	$itemName = trim($_POST[$param]??'');
+	$params[$param]         = mb_substr($itemName, 0, 250);
+	$params['itemName_len'] = mb_strlen($itemName);
 
 	// list must be alphanumeric
 /*	$param = 'list';

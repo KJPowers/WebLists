@@ -175,20 +175,22 @@ class AjaxNewItemHandler extends AjaxHandler
 	{
 		$this->validate();
 
-		$results = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
-		$item_id;
-		if (count($results) == 0)
-		{
-			DB::runQuery('INSERT INTO item (name) VALUES (?)', array($this->itemName));
-			$results2 = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
-			$item_id = $results2[0]['id'];
-		}
-		else
-		{
-			$item_id = $results[0]['id'];
-		}
-		DB::runQuery('INSERT INTO list_item ( list_uuid, item_id ) VALUES ( ?, ?)', array($this->listUuid, $item_id));
-
+		if ($this->itemName_len > 0)			// TEMPORARY!
+		{																	// TEMPORARY!
+			$results = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
+			$item_id;
+			if (count($results) == 0)
+			{
+				DB::runQuery('INSERT INTO item (name) VALUES (?)', array($this->itemName));
+				$results2 = DB::runQuery('SELECT * FROM item WHERE name = ?', array($this->itemName));
+				$item_id = $results2[0]['id'];
+			}
+			else
+			{
+				$item_id = $results[0]['id'];
+			}
+			DB::runQuery('INSERT INTO list_item ( list_uuid, item_id ) VALUES ( ?, ?)', array($this->listUuid, $item_id));
+		}																	// TEMPORARY!
 		$this->success(AjaxNbAndCurrentItemsResponse::load($this->listUuid));
 	}
 
@@ -213,6 +215,10 @@ class AjaxNewItemHandler extends AjaxHandler
 		{
 			// TODO: throw an error
 		}*/
+
+		if ($this->itemName_len == 0)
+		{
+			// TODO: silently fail
+		}
 	}
 }
-
