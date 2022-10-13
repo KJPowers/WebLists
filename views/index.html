@@ -18,16 +18,12 @@
 ?>
 <div class="container">
   {{# currentList }}
-		{{# .hasItems }}
-			<ul id="theCurrentList">
-			{{# currentList.items }}
-				<li><a class="nav-link {{ .class }}" role="button" onclick="toggleMarkedAjax({{ .id }})">{{ .name }}</a></li>
-			{{/ currentList.items }}
-			</ul>
-		{{/ .hasItems }}
-		{{^ .hasItems }}
-			No items yet. Add one maybe?
-		{{/ .hasItems }}
+		<ul id="theCurrentList" class="{{ .listClass }}">
+		{{# currentList.listItems }}
+			<li><a class="nav-link {{ .class }}" role="button" onclick="toggleMarkedAjax({{ .id }})">{{ .name }}</a></li>
+		{{/ currentList.listItems }}
+		</ul>
+		<div id="currentListEmpty" class="{{ .emptyClass }}">No items yet. Add one maybe?</div>
 	{{/ currentList }}
 	{{^ currentList }}
 		Create or select a list, then add items.

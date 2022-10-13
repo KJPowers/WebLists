@@ -43,7 +43,7 @@ class Controller
 			$ni = new NavbarItem($row['id'], $row['name'], $row['description'], $row['marked']);
 			if (isset($uuid) && $uuid === $row['list_uuid'])
 			{
-				$mdl->currentList->items[] = new CurrentListItem($row['id'], $row['name'], $row['description'], $row['marked']);
+				$mdl->currentList->listItems[] = new CurrentListItem($row['id'], $row['name'], $row['description'], $row['marked']);
 			}
 			else
 			{

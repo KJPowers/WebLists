@@ -164,6 +164,8 @@ function replaceActiveList(json_list)
 		    .replace('${class}',  js_list.listItems[i].class);
 	}
 	document.getElementById('theCurrentList').innerHTML = repl_html;
+	document.getElementById('theCurrentList').className   = (repl_html === '' ? 'd-none'  : 'd-block');
+	document.getElementById('currentListEmpty').className = (repl_html === '' ? 'd-block' : 'd-none');
 }
 
 function replaceAvailableItems(json_list)

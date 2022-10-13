@@ -28,7 +28,17 @@ class WebList
 
 	public function hasItems():bool
 	{
-		return count($this->items) > 0;
+		return count($this->listItems) > 0;
+	}
+
+	public function listClass():string
+	{
+	  return $this->hasItems() ? 'd-block' : 'd-none';
+	}
+
+	public function emptyClass():string
+	{
+	  return $this->hasItems() ? 'd-none' : 'd-block';
 	}
 
 	public function toJSON():string
