@@ -191,7 +191,7 @@ class AjaxNewItemHandler extends AjaxHandler
 			{
 				$item_id = $results[0]['id'];
 			}
-			$results = DB::runQuery('SELECT MAX(sort_idx)+1 "next" FROM list_item WHERE list_uuid=?', array($this->listUuid));
+			$results = DB::runQuery('SELECT IFNULL(MAX(sort_idx)+1,0) "next" FROM list_item WHERE list_uuid=?', array($this->listUuid));
 			$sortIdx = $results[0]['next'];
 			DB::runQuery('INSERT INTO list_item ( list_uuid, item_id, sort_idx ) VALUES ( ?, ?, ?)', array($this->listUuid, $item_id, $sortIdx));
 		}																	// TEMPORARY!
