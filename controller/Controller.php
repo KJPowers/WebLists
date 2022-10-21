@@ -37,7 +37,7 @@ class Controller
 
 		// Get all items
 		// TODO: for the current user
-		$results = Controller::runQuery('SELECT item.*, list_item.list_uuid, list_item.marked FROM item LEFT JOIN list_item ON item.id = list_item.item_id ORDER BY sort_idx, name');
+		$results = Controller::runQuery('SELECT item.*, list_item.list_uuid, list_item.marked FROM item LEFT JOIN list_item ON item.id = list_item.item_id AND list_item.list_uuid = ? ORDER BY sort_idx, name', array($uuid));
 		foreach ($results as $row)
 		{
 			$ni = new NavbarItem($row['id'], $row['name'], $row['description'], $row['marked']);
