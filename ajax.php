@@ -19,6 +19,9 @@ switch ($params['action']??null)
 	case 'newItem':
 		$handler = new AjaxNewItemHandler($params);
 		break;
+	case 'updateSort':
+		$handler = new AjaxUpdateSortHandler($params);
+		break;
 	default:
 //		$handler = new AjaxErrorHandler($params);
 		echo 'Error:·unknown·action';
@@ -41,7 +44,7 @@ function parseAjaxParams(): array
 {
 	$params = array();
 
-	// action can be one of: addItem, toggleMarked, clearMarked, newItem, editItem (TODO), removeItem (TODO), addList (TODO), editList(TODO), removeList(TODO), newList(TODO)
+	// action can be one of: addItem, toggleMarked, clearMarked, newItem, updateSort, editItem (TODO), removeItem (TODO), addList (TODO), editList(TODO), removeList(TODO), newList(TODO)
 	$param = 'action';
 
 	switch ($_POST[$param]??null)
@@ -50,6 +53,7 @@ function parseAjaxParams(): array
 		case 'toggleMarked':
 		case 'clearMarked':
 		case 'newItem':
+		case 'updateSort':
 			$params[$param] = $_POST[$param];
 	}
 
@@ -74,6 +78,20 @@ function parseAjaxParams(): array
 	$itemName = trim($_POST[$param]??'');
 	$params[$param]         = mb_substr($itemName, 0, 250);
 	$params['itemName_len'] = mb_strlen($itemName);
+
+	// oldIdx must be numeric
+	$param = 'oldIdx';
+	if (is_numeric($_POST[$param]??null))
+	{
+		$params[$param] = (int)$_POST[$param];
+	}
+
+	// newIdx must be numeric
+	$param = 'newIdx';
+	if (is_numeric($_POST[$param]??null))
+	{
+		$params[$param] = (int)$_POST[$param];
+	}
 
 	// list must be alphanumeric
 /*	$param = 'list';

@@ -37,6 +37,17 @@ CREATE TABLE list_item (
 	FOREIGN KEY (item_id)   REFERENCES item(id)
 ) COMMENT='An item in a list.';
 
+/* TODO
+CREATE TRIGGER before_insert_list_item
+	BEFORE INSERT ON list_item
+	FOR EACH ROW
+		SET new.sort_idx = ??SELECT COUNT(*) FROM list_item where list_uuid = new.list_uuid;??
+
+CREATE TRIGGER trigger_name
+	AFTER DELETE ON list_item
+	FOR EACH ROW
+	  ??UPDATE list_item SET sort_idx = sort_idx - 1 WHERE list_uuid=old.list_uuid AND sort_idx > old.sort_idx;?? */
+
 /* 2) Grant privileges to _user */
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON weblists.*
