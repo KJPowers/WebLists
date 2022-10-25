@@ -136,6 +136,17 @@ class AjaxClearMarkedHandler extends AjaxHandler
 
 		DB::runQuery('DELETE FROM list_item WHERE list_uuid = ? AND marked', array($this->listUuid));
 
+		// Maintain sort_idx as a valid index
+		// TODO: figure out how to do this non-iteratively
+		$results = DB::runQuery('SELECT item_id, sort_idx, row_number() over () - 1 "idx" FROM list_item WHERE list_uuid = ?', array($this->listUuid));
+		foreach ($results as $row)
+		{
+			if ($row['sort_idx'] != $row['idx'])
+			{
+				DB::runQuery('UPDATE list_item SET sort_idx = ? WHERE list_uuid = ? AND item_id = ?', array($row['idx'], $this->listUuid, $row['item_id']));
+			}
+		}
+
 		$this->success(AjaxNbAndCurrentItemsResponse::load($this->listUuid));
 	}
 
@@ -193,7 +204,7 @@ class AjaxNewItemHandler extends AjaxHandler
 			}
 			$results = DB::runQuery('SELECT IFNULL(MAX(sort_idx)+1,0) "next" FROM list_item WHERE list_uuid=?', array($this->listUuid));
 			$sortIdx = $results[0]['next'];
-			DB::runQuery('INSERT INTO list_item ( list_uuid, item_id, sort_idx ) VALUES ( ?, ?, ?)', array($this->listUuid, $item_id, $sortIdx));
+			DB::runQuery('INSERT INTO list_item ( list_uuid, item_id, sort_idx ) VALUES ( ?, ?, ? )', array($this->listUuid, $item_id, $sortIdx));
 		}																	// TEMPORARY!
 		$this->success(AjaxNbAndCurrentItemsResponse::load($this->listUuid));
 	}
