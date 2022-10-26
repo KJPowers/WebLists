@@ -41,7 +41,10 @@
 		<script type="text/javascript">const LIST_UUID='{{# currentList }}{{ .uuid}}{{/ currentList }}'</script>
 		<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-		<script>Sortable.create(document.getElementById('theCurrentList'),
-		                        { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );</script>
+		<script>
+			Sortable.create(document.getElementById('theCurrentList'),
+			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
+			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );
+		</script>
 	</body>
 </html>

@@ -22,6 +22,9 @@ switch ($params['action']??null)
 	case 'updateSort':
 		$handler = new AjaxUpdateSortHandler($params);
 		break;
+	case 'refresh':
+		$handler = new AjaxRefreshHandler($params);
+		break;
 	default:
 //		$handler = new AjaxErrorHandler($params);
 		echo 'Error:·unknown·action';
@@ -54,6 +57,7 @@ function parseAjaxParams(): array
 		case 'clearMarked':
 		case 'newItem':
 		case 'updateSort':
+		case 'refresh':
 			$params[$param] = $_POST[$param];
 	}
 

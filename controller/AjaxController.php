@@ -349,3 +349,39 @@ class AjaxUpdateSortHandler extends AjaxHandler
 	}
 }
 
+// Handle ajax calls of type 'refresh'
+class AjaxRefreshHandler extends AjaxHandler
+{
+	private ?string $listUuid;
+
+	public function __construct(?array $params)
+	{
+		parent::__construct($params);
+		$this->listUuid = $params['listUuid'];
+	}
+
+	function handleAjax()
+	{
+		// Dead simple, just reload everything
+		$this->success(AjaxNbAndCurrentItemsResponse::load($this->listUuid));
+	}
+
+	function validate()
+	{
+		if ($this->action != 'refresh')
+		{
+			// TODO: throw an error
+		}
+
+		if (!isset($this->listUuid))
+		{
+			// TODO: throw an error
+		}
+
+/*		if (TODO: check that user has permission to edit list and to access item)
+		{
+			// TODO: throw an error
+		}*/
+	}
+}
+

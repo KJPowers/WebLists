@@ -187,6 +187,60 @@ function updateSortAjax(oldIdx, newIdx)
 	}
 }
 
+function refreshAjax()
+{
+	var httpRequest;
+	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+	httpRequest = new XMLHttpRequest();
+
+	if (!httpRequest)
+	{
+		alert('Giving up: ( Cannot create an XMLHTTP instance');
+		return false;
+	}
+
+	httpRequest.onreadystatechange = doneRefreshing;
+	//httpRequest.open('GET', 'ajax.php', true);
+	httpRequest.open('POST', 'ajax.php', true);
+	httpRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	httpRequest.send('action=refresh&listUuid=' + encodeURIComponent(LIST_UUID));
+
+	function doneRefreshing()
+	{
+		if (httpRequest.readyState === XMLHttpRequest.DONE)
+		{
+			if (httpRequest.status === 200)
+			{
+//				alert(httpRequest.responseText);  // TODO: stop doing this when we're done debugging
+				replaceAvailableItems(httpRequest.responseText);
+				replaceActiveList(httpRequest.responseText);
+			}
+			else
+			{
+				alert('There was a problem with the request.');
+			}
+		}
+	}
+}
+
+function visibilityChanged()
+{
+	if (document.visibilityState === 'visible')
+	{
+		//refreshAjax();
+		periodicallyRefresh();
+	}
+}
+
+function periodicallyRefresh()
+{
+	if (document.visibilityState === 'visible')
+	{
+		refreshAjax();
+		setTimeout(periodicallyRefresh, 20000);
+	}
+}
+
 function replaceActiveList(json_list)
 {
 	var templ = document.getElementById('listItemTemplate').innerHTML;
