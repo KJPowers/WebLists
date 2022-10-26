@@ -45,6 +45,7 @@
 			Sortable.create(document.getElementById('theCurrentList'),
 			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
 			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );
+			periodicallyRefresh();
 		</script>
 	</body>
 </html>
