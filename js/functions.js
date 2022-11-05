@@ -282,6 +282,26 @@ function itemSearchKeyPress(event)
 	{
 		event.preventDefault();
 		document.getElementById("nb_newItemButton").click();
-  }
+	}
+}
+
+function itemSearchFilter(event)
+{
+	var searchText, lis, i, a, txtValue;
+	searchText = document.getElementById("itemSearch").value.toLowerCase();
+	lis = document.getElementById("availableItems").getElementsByTagName("li");
+	for (i=0; i<lis.length; i++)
+	{
+		a = lis[i].getElementsByTagName("a")[0];
+		txtValue = a.textContent || a.innerText;
+		if (txtValue.toLowerCase().indexOf(searchText) > -1)
+		{
+			lis[i].classList.remove("d-none");
+		}
+		else
+		{
+			lis[i].classList.add("d-none");
+		}
+	}
 }
 
