@@ -43,7 +43,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script>
 			document.getElementById("itemSearch").addEventListener("keypress", function(event) { itemSearchKeyPress(event); } );
-			document.getElementById("itemSearch").addEventListener("keyup", function(event) { itemSearchFilter(event); } );
+			document.getElementById("itemSearch").addEventListener("keyup", function(event) { itemSearchFilter(); } );
 			Sortable.create(document.getElementById('theCurrentList'),
 			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
 			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );

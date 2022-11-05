@@ -285,7 +285,7 @@ function itemSearchKeyPress(event)
 	}
 }
 
-function itemSearchFilter(event)
+function itemSearchFilter()
 {
 	var searchText, lis, i, a, txtValue;
 	searchText = document.getElementById("itemSearch").value.toLowerCase();
