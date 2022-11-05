@@ -305,3 +305,10 @@ function itemSearchFilter()
 	}
 }
 
+function registerFocusGrab(element)
+{
+	new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (entry.intersectionRatio > 0) { entry.target.focus(); } } ); },
+	                         { root: document.documentElement } )
+	  .observe(element);
+}
+

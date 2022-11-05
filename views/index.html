@@ -48,6 +48,7 @@
 			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
 			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );
 			periodicallyRefresh();
+			registerFocusGrab(document.getElementById("itemSearch"));
 		</script>
 	</body>
 </html>
