@@ -275,3 +275,13 @@ function replaceAvailableItems(json_list)
 	}
 	document.getElementById('availableItems').innerHTML = repl_html;
 }
+
+function itemSearchKeyPress(event)
+{
+	if (event.key === "Enter")
+	{
+		event.preventDefault();
+		document.getElementById("nb_newItemButton").click();
+  }
+}
+

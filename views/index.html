@@ -42,6 +42,7 @@
 		<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script>
+			document.getElementById("itemSearch").addEventListener("keypress", function(event) { itemSearchKeyPress(event); } );
 			Sortable.create(document.getElementById('theCurrentList'),
 			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
 			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );
