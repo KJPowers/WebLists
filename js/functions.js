@@ -32,6 +32,7 @@ function addItemAjax(item_id)
 //				alert(httpRequest.responseText);	// TODO: stop doing this when we're done debugging
 				replaceAvailableItems(httpRequest.responseText);
 				replaceActiveList(httpRequest.responseText);
+				document.getElementById('itemSearch').value = '';
 			}
 			else
 			{
