@@ -45,7 +45,9 @@
 			document.getElementById("itemSearch").addEventListener("keypress", function(event) { itemSearchKeyPress(event); } );
 			document.getElementById("itemSearch").addEventListener("keyup", function(event) { itemSearchFilter(); } );
 			Sortable.create(document.getElementById('theCurrentList'),
-			                { onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
+			                { delay: 100,
+			                  delayOnTouchOnly: true,
+			                  onUpdate: function (evt) { updateSortAjax(evt.oldIndex, evt.newIndex); } } );
 			document.addEventListener("visibilitychange", () => { visibilityChanged(); } );
 			periodicallyRefresh();
 			registerFocusGrab(document.getElementById("itemSearch"));
