@@ -1,10 +1,3 @@
-// DEPRECATED: use addItemAjax()
-function addItem(item_id)
-{
-	document.getElementById("inAddItem").value=item_id;
-	document.getElementById("frmAddItem").submit();
-}
-
 function addItemAjax(item_id)
 {
 	var httpRequest;

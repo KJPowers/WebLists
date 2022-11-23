@@ -38,18 +38,14 @@
 				</button>
 				<!-- Add item (to current list) -->
 				<div class="dropdown-menu dropdown-menu-dark ms-auto">
-					<form method="post" action="ajax.php" id="frmAddItem">
-						<input type="hidden" id="inAddItem" name="inAddItem" value="addThisItem" />
-						<!--li><a class="nav-link" href="#">Search O---</a></li><! -- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
-						<!-- Item Search button -->
-						<input type="text" class="form-control" id="itemSearch" placeholder="Search"></input><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
-						<!-- New Item button -->
-						<button type="button" id="nb_newItemButton" class="form-control nav-button btn bg-light" onclick="newItemAjax()">New Item</button>
-						<ul id="availableItems">
-							{{# items }}
-								<li><a class="{{ .class }}" role="button" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
-							{{/ items }}
-						</form>
+					<!-- Item Search button -->
+					<input type="text" class="form-control" id="itemSearch" placeholder="Search"></input><!-- The end of this will have buttons for barcode scanning, voice-to-text, etc -->
+					<!-- New Item button -->
+					<button type="button" id="nb_newItemButton" class="form-control nav-button btn bg-light" onclick="newItemAjax()">New Item</button>
+					<ul id="availableItems">
+						{{# items }}
+							<li><a class="{{ .class }}" role="button" onclick="addItemAjax({{ .id }})">{{ .name }}</a></li>
+						{{/ items }}
 					</ul>
 				</div>
 			</li>
