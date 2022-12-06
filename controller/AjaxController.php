@@ -138,7 +138,7 @@ class AjaxClearMarkedHandler extends AjaxHandler
 
 		// Maintain sort_idx as a valid index
 		// TODO: figure out how to do this non-iteratively
-		$results = DB::runQuery('SELECT item_id, sort_idx, row_number() over () - 1 "idx" FROM list_item WHERE list_uuid = ?', array($this->listUuid));
+		$results = DB::runQuery('SELECT item_id, sort_idx, row_number() over () - 1 "idx" FROM list_item WHERE list_uuid = ? ORDER BY sort_idx', array($this->listUuid));
 		foreach ($results as $row)
 		{
 			if ($row['sort_idx'] != $row['idx'])
