@@ -19,12 +19,7 @@
 <div class="container">
 	{{# currentList }}
 		<ul id="theCurrentList" class="{{ .listClass }}">
-		{{# currentList.listItems }}
-			<li>
-				<a class="flex-grow-1 nav-link {{ .class }}" role="button" onclick="toggleMarkedAjax({{ .id }})">{{ .name }}</a>
-				<a class="sort-handle nav-link text-reset" role="button">&#8801;</a>
-			</li>
-		{{/ currentList.listItems }}
+			<li>Loading...</li>
 		</ul>
 		<div id="currentListEmpty" class="{{ .emptyClass }}">No items yet. Add one maybe?</div>
 	{{/ currentList }}
@@ -32,10 +27,10 @@
 		Create or select a list, then add items.
 	{{/ currentList }}
 </div>
-<div id='nbItemTemplate' class="d-none">
+<div id="nbItemTemplate" class="d-none">
 <li><a class="${class}" onclick="addItemAjax(${id})">${name}</a></li>
 </div>
-<div id='listItemTemplate' class="d-none">
+<div id="listItemTemplate" class="d-none">
 <li class="d-flex">
 	<a class="flex-grow-1 nav-link ${class}" role="button" onclick="toggleMarkedAjax(${id})">${name}</a>
 	<a class="sort-handle nav-link text-reset" role="button">&#8801;</a>
@@ -48,6 +43,7 @@
 		<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
 		<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 		<script>
+			window.addEventListener('DOMContentLoaded', (event) => { refreshAjax(); } );
 			document.getElementById("itemSearch").addEventListener("keypress", function(event) { itemSearchKeyPress(event); } );
 			document.getElementById("itemSearch").addEventListener("keyup", function(event) { itemSearchFilter(); } );
 			Sortable.create(document.getElementById('theCurrentList'),
