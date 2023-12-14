@@ -268,6 +268,8 @@ function replaceAvailableItems(json_list)
 		    .replace('${class}', js_list.nbItems[i].class);
 	}
 	document.getElementById('availableItems').innerHTML = repl_html;
+
+	itemSearchFilter();
 }
 
 function itemSearchKeyPress(event)
