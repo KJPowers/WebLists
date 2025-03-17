@@ -8,8 +8,10 @@ A simple list management program designed to run on a standard LAMP stack.
 * **Multiple Lists per User**: I want my grocery list to be separate from my Christmas shopping list.
 * **Multiple Users per List**: I want to share my list with others who may or may not be in close proximity.  This leads to...
 * **Responsive Website**: I'm lazy so I only want to write one app; not one for Android, another for iPhone, and a 3rd for PC.  This leads to...
-* **PHP**: It should install on a standard LAMP stack.  I know Wicket better than I know PHP but it's harder to get running for other people and a Docker image seems to be overkill.
 * **Live Updates**: One user's changes should reflect to another user ASAP.  This probably means AJAX and/or Websockets.
+* ~~**PHP**: It should install on a standard LAMP stack.  I know Wicket better than I know PHP but it's harder to get running for other people and a Docker image seems to be overkill.~~
+* **PHP**: I really don't like PHP, but for now it's easier than setting up a passthrough to some other back end...
+* **RESTful**  The server will (eventually) become RESTful (or some approximation thereof), with the Web UI serving the HTML client and exposing the REST API with some kind of passthrough to a proper back end.
 * **Access Control**: Private lists (security through obscurity? Passwords? 2FA?). Group accounts with permissions?
 * **UTF-8 Support**: It would be a PITA to migrate it later.
 
@@ -28,7 +30,7 @@ A simple list management program designed to run on a standard LAMP stack.
 * **i18n**: If it takes off.
 
 ## Installing
-For now the plan is to check out this repo directly into your apache site directory, but in the future to avoid the obvious security risks there will be a build script in some form to package the necessary files and nothing else into a .zip (or .tar.gz or whatever).
+For now the plan is to check out this repo directly into your apache site directory, but this will change soon to avoid the obvious security risks there will be a build script in some form to package the necessary files and nothing else into a .zip (or .tar.gz or whatever).
 
 ### Prerequisites
 * LAMP stack configured to run PHP (I use PHP 8.1 and I haven't tested on other versions yet)
