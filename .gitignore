@@ -1,1 +1,11 @@
 vendor
+
+# Ignore Eclipse confg files
+.project
+.settings
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
