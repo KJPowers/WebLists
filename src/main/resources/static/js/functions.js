@@ -1,4 +1,4 @@
-function addItemAjax(item_id)
+/*function addItemAjax(item_id)
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -33,9 +33,9 @@ function addItemAjax(item_id)
 			}
 		}
 	}
-}
+}*/
 
-function toggleMarkedAjax(item_id)
+/*function toggleMarkedAjax(item_id)
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -69,9 +69,9 @@ function toggleMarkedAjax(item_id)
 			}
 		}
 	}
-}
+}*/
 
-function clearMarkedAjax()
+/*function clearMarkedAjax()
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -105,9 +105,9 @@ function clearMarkedAjax()
 			}
 		}
 	}
-}
+}*/
 
-function newItemAjax()
+/*function newItemAjax()
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -142,9 +142,9 @@ function newItemAjax()
 			}
 		}
 	}
-}
+}*/
 
-function updateSortAjax(oldIdx, newIdx)
+/*function updateSortAjax(oldIdx, newIdx)
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -179,9 +179,9 @@ function updateSortAjax(oldIdx, newIdx)
 			}
 		}
 	}
-}
+}*/
 
-function refreshAjax()
+/*function refreshAjax()
 {
 	var httpRequest;
 	//document.getElementById("ajaxButton").addEventListener('click', makeRequest);
@@ -215,7 +215,7 @@ function refreshAjax()
 			}
 		}
 	}
-}
+}*/
 
 function visibilityChanged()
 {
