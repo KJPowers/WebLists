@@ -1,11 +1,12 @@
-import axios from './redaxios.jss';
+import axios from './redaxios.js';
 
 // Get something from an API somewhere.  TODO: use an actual API
-async function fetchFromAPI() {
+// The 'getPath' parameter should be relative to index.html
+async function fetchFromAPI(getPath) {
   const outputDiv = document.getElementById('testOutput');
 
   try {
-    const response = await axios.get('foo.txt');	// Relative path (to html) is fine
+    const response = await axios.get(getPath);	// Relative path (to html) is fine
     outputDiv.innerHTML += ("<div>" + `REST Result: ${response.data}` + "</div>");
   } catch (error) {
     outputDiv.innerHTML += ("<div>" + `Error: ${error.message}` + "</div>");
@@ -13,9 +14,11 @@ async function fetchFromAPI() {
 }
 
 function init() {
-  const btn = document.getElementById('fetchButton');
+	document.getElementById('fetchFooButton')
+					.addEventListener('click', () => { fetchFromAPI('foo.txt') });
 
-  btn.addEventListener('click', fetchFromAPI);
+	document.getElementById('fetchAPIButton')
+					.addEventListener('click', () => { fetchFromAPI('api/hello') });
 }
 
 // Link everything up

@@ -4,3 +4,28 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.14.4/samples
  */
+
+plugins {
+  java
+  war
+}
+
+group = "tld.domain"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // TomEE provides Jakarta/Java EE APIs at runtime; do not bundle them in the WAR
+  providedCompile("jakarta.platform:jakarta.jakartaee-api:10.0.0") // Use 9.x or 8.x depending on your TomEE version
+
+//  // JDBC Drivers (if not provided globally by TomEE's /lib folder)
+//  implementation("com.mysql:mysql-connector-j:9.1.0")
+//  implementation("org.postgresql:postgresql:42.7.4")
+}
+
+tasks.war {
+  archiveFileName.set("ROOT.war") 
+}
